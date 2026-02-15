@@ -1,4 +1,16 @@
+
 @import "tailwindcss";
+
+/* Asegura que todo ocupe el 100% de altura */
+/* Rellenamos toda la pantalla */
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: #ffffff; /* fondo oscuro general, puedes poner degradado en el contenedor si quieres */
+}
+
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;

@@ -3,32 +3,30 @@ import { useFavorites } from "../hooks/useFavorites";
 
 const CharacterCard = ({ character }) => {
   const { addFavorite, removeFavorite, isFavorite } = useFavorites();
-
   const favorite = isFavorite(character.id);
 
   const toggleFavorite = () => {
-    if (favorite) {
-      removeFavorite(character.id);
-    } else {
-      addFavorite(character);
-    }
+    favorite
+      ? removeFavorite(character.id)
+      : addFavorite(character);
   };
 
   return (
-    <div style={{ border: "1px solid gray", margin: 10, padding: 10 }}>
-      <img src={character.image} width="150" />
-      <h3>{character.name}</h3>
-      <p>Planet: {character.origin.name}</p>
-
-      <button onClick={toggleFavorite}>
+  <div className="bg-gray-800 rounded-2xl shadow-lg w-full flex flex-col overflow-hidden">
+  <img src={character.image} className="w-full h-64 object-cover" />
+  <div className="p-4 flex-1 flex flex-col justify-between">
+    <h3 className="text-lg font-bold text-white">{character.name}</h3>
+    <p className="text-sm text-gray-400">Planet: {character.origin.name}</p>
+    <div className="mt-4 flex justify-between items-center">
+      <button className="text-white bg-red-500 px-3 py-1 rounded-lg">
         {favorite ? "❤️ Remove" : "🤍 Add"}
       </button>
-
-      <br />
-      <Link to={`/character/${character.id}`}>
+      <Link className="text-cyan-400 hover:underline" to={`/character/${character.id}`}>
         View Detail
       </Link>
     </div>
+  </div>
+</div>
   );
 };
 
