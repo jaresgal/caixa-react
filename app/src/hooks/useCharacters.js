@@ -7,8 +7,22 @@ export const useCharacters = (filters) => {
 
   useEffect(() => {
     setLoading(true);
-    getCharacters(filters)
-      .then(res => setCharacters(res.data.results))
+    getCharacters()
+      .then(res => {
+        let data = res.data.results;
+
+        // Filtrado por cada campo si existe
+        if (filters) {
+          data = data.filter((char) => {
+            const nameMatch = char.name.toLowerCase().includes((filters.name || "").toLowerCase());
+            const speciesMatch = char.species.toLowerCase().includes((filters.species || "").toLowerCase());
+            const locationMatch = char.location.name.toLowerCase().includes((filters.location || "").toLowerCase());
+            return nameMatch && speciesMatch && locationMatch;
+          });
+        }
+
+        setCharacters(data);
+      })
       .finally(() => setLoading(false));
   }, [filters]);
 
